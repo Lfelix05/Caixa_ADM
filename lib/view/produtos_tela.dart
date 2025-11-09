@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'database.dart';
-import 'produtos.dart';
+import 'package:caixa/database.dart';
+import 'package:caixa/produtos.dart';
 
 class DateInputFormatter extends TextInputFormatter {
   @override

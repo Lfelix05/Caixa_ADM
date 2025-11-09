@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'package:caixa/view/home.dart';
 
 void main() {
   runApp(const MainApp());
