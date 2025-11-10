@@ -24,6 +24,7 @@ class Database {
       data_venda: venda.data_venda,
       cliente: venda.cliente,
       prazo_venda: venda.prazo_venda,
+      forma_pagamento: venda.forma_pagamento,
     );
     vendas.add(newVenda);
   }
