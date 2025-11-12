@@ -87,10 +87,9 @@ class _ProdutosPageState extends State<ProdutosPage> {
                                   Icons.delete,
                                   color: Colors.red,
                                 ),
-                                onPressed: () {
-                                  setState(() {
-                                    Database.produtos.removeAt(index);
-                                  });
+                                onPressed: () async {
+                                  await Database.removeProduto(index);
+                                  setState(() {});
                                 },
                               ),
                             ],
@@ -210,7 +209,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                     child: const Text('Cancelar'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_namecontroller.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -297,7 +296,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                       final String nome = _namecontroller.text;
                       final String fornecedor = _fornecedorController.text;
 
-                      Database.addProduto(
+                      await Database.addProduto(
                         Produto(
                           nome: nome,
                           preco_compra: precoCompra,

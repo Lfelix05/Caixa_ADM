@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:caixa/view/home.dart';
+import 'package:caixa/database.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Database.loadData(); // Carregar dados salvos
   runApp(const MainApp());
 }
 

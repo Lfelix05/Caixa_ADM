@@ -245,7 +245,7 @@ class _VendasPageState extends State<VendasPage> {
                     child: const Text('Cancelar'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_produtoSelecionado == null ||
                           _produtoSelecionado!.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -342,7 +342,7 @@ class _VendasPageState extends State<VendasPage> {
                         prazo_venda: prazoVenda,
                         forma_pagamento: formaPagamento,
                       );
-                      Database.addVenda(venda);
+                      await Database.addVenda(venda);
 
                       _produtoSelecionado = null;
                       _formaPagamentoSelecionada = null;
