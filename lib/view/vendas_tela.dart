@@ -146,7 +146,7 @@ class _VendasPageState extends State<VendasPage> {
                             border: OutlineInputBorder(),
                             prefixIcon: Icon(Icons.inventory_2_outlined),
                           ),
-                          value: _produtoSelecionado,
+                          initialValue: _produtoSelecionado,
                           items: Database.produtos.isEmpty
                               ? null
                               : Database.produtos.map((produto) {
@@ -187,7 +187,7 @@ class _VendasPageState extends State<VendasPage> {
                             border: OutlineInputBorder(),
                             prefixIcon: Icon(Icons.payment),
                           ),
-                          value: _formaPagamentoSelecionada,
+                          initialValue: _formaPagamentoSelecionada,
                           items: ['Pix', 'Débito', 'Crédito'].map((forma) {
                             return DropdownMenuItem<String>(
                               value: forma,
