@@ -17,7 +17,6 @@ class _VendasPageState extends State<VendasPage> {
   final TextEditingController _precoVendaController = TextEditingController();
   final TextEditingController _dataVendaController = TextEditingController();
   final TextEditingController _clienteController = TextEditingController();
-  final TextEditingController _prazoVendaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -221,18 +220,6 @@ class _VendasPageState extends State<VendasPage> {
                           ),
                           controller: _clienteController,
                         ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          decoration: const InputDecoration(
-                            labelText: 'Prazo de Venda',
-                            hintText: 'dd/mm/aaaa',
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.event_available),
-                          ),
-                          controller: _prazoVendaController,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [DateInputFormatter()],
-                        ),
                       ],
                     ),
                   ),
@@ -320,26 +307,16 @@ class _VendasPageState extends State<VendasPage> {
                         return;
                       }
 
-                      final DateTime? prazoVenda;
-                      if (_prazoVendaController.text.isEmpty) {
-                        prazoVenda = DateTime.now();
-                      } else {
-                        prazoVenda = parseDate(
-                          _prazoVendaController.text,
-                        );
-                        return;
-                      }
-
                       final String nomeProduto = _produtoSelecionado!;
                       final String cliente = _clienteController.text;
                       final String formaPagamento = _formaPagamentoSelecionada!;
 
-                      final venda = Vendas(
+                      // Usar o factory constructor que calcula automaticamente o prazo_venda
+                      final venda = Vendas.criar(
                         nome_produto: nomeProduto,
                         preco_venda: precoVenda,
                         data_venda: dataVenda,
                         cliente: cliente,
-                        prazo_venda: prazoVenda,
                         forma_pagamento: formaPagamento,
                       );
                       await Database.addVenda(venda);
@@ -349,7 +326,6 @@ class _VendasPageState extends State<VendasPage> {
                       _precoVendaController.clear();
                       _dataVendaController.clear();
                       _clienteController.clear();
-                      _prazoVendaController.clear();
 
                       Navigator.of(context).pop();
                       setState(() {

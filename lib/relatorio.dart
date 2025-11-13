@@ -32,26 +32,16 @@ class Relatorio {
   }
 
   // Calcula o PMRV (Prazo Médio de Recebimento de Vendas)
-  // Média baseada nas formas de pagamento
+  // Média da diferença em dias entre prazo_venda e data_venda
   static double calcularPMRV() {
     if (Database.vendas.isEmpty) return 0.0;
 
     double somaPrazos = 0.0;
 
     for (var venda in Database.vendas) {
-      switch (venda.forma_pagamento) {
-        case 'Pix':
-          somaPrazos += 0;
-          break;
-        case 'Débito':
-          somaPrazos += 0;
-          break;
-        case 'Crédito':
-          somaPrazos += 30;
-          break;
-        default:
-          somaPrazos += 0;
-      }
+      // Calcula a diferença em dias entre o prazo de venda e a data da venda
+      int diasPrazo = venda.prazo_venda.difference(venda.data_venda).inDays;
+      somaPrazos += diasPrazo;
     }
 
     return somaPrazos / Database.vendas.length;

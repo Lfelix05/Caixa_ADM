@@ -1,6 +1,6 @@
 ﻿import 'produtos.dart';
 import 'vendas.dart';
-import 'database_helper.dart';
+import 'database_helper_web.dart' if (dart.library.io) 'database_helper.dart';
 
 class Database {
   static List<Produto> produtos = [];
@@ -36,7 +36,7 @@ class Database {
       preco_venda: venda.preco_venda,
       data_venda: venda.data_venda,
       cliente: venda.cliente,
-      prazo_venda: venda.prazo_venda, 
+      prazo_venda: venda.prazo_venda,
       forma_pagamento: venda.forma_pagamento,
     );
     vendas.add(newVenda);
