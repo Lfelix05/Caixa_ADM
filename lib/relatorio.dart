@@ -9,9 +9,9 @@ class Relatorio {
     switch (formaPagamento.toLowerCase()) {
       case 'pix':
       case 'débito':
-        return 0; // Pix: 0 dias[cite: 27]; Débito: 0 dia [cite: 28]
+        return 0; // Pix: 0 dias; Débito: 0 dia 
       case 'crédito':
-        return 30; // Crédito: 30 dias [cite: 29]
+        return 30; // Crédito: 30 dias 
       default:
         // Se a forma de pagamento não for reconhecida, considera 0.
         return 0;
@@ -51,7 +51,7 @@ class Relatorio {
   }
 
   // Calcula o PMRV (Prazo Médio de Recebimento de Vendas)
-  // Média entre formas de pagamento (dias) [cite: 26]
+  // Média entre formas de pagamento (dias) 
   static double calcularPMRV() {
     if (Database.vendas.isEmpty) return 0.0;
 
@@ -66,7 +66,7 @@ class Relatorio {
   }
 
   // Calcula o PMPF (Prazo Médio de Pagamento a Fornecedor)
-  // Média entre prazo de pagamento do fornecedor [cite: 32]
+  // Média entre prazo de pagamento do fornecedor 
   static double calcularPMPF() {
     if (Database.produtos.isEmpty) return 0.0;
 
@@ -83,33 +83,31 @@ class Relatorio {
     return somaPrazos / Database.produtos.length;
   }
 
-  // Calcula o Ciclo Operacional (PMRE + PMRV) [cite: 24]
+  // Calcula o Ciclo Operacional (PMRE + PMRV) 
   static double calcularCicloOperacional() {
     return calcularPMRE() + calcularPMRV();
   }
 
-  // Calcula o Ciclo de Caixa (Ciclo Operacional - PMPF) [cite: 30]
+  // Calcula o Ciclo de Caixa (Ciclo Operacional - PMPF) 
   static double calcularCicloCaixa() {
     return calcularCicloOperacional() - calcularPMPF();
   }
 
-  // Calcula o Giro do Caixa (Ciclo de Caixa / 360) [cite: 41]
+  // Calcula o Giro do Caixa (Ciclo de Caixa / 360) 
   static double calcularGiroCaixa() {
     double cicloCaixa = calcularCicloCaixa();
     // 360 é o número de dias no ano comercial usado para o cálculo.
     return cicloCaixa / 360.0;
   }
 
-  // Calcula o Saldo Mínimo de Caixa (Previsão de Despesas / Giro do Caixa) [cite: 40]
+  // Calcula o Saldo Mínimo de Caixa (Previsão de Despesas / Giro do Caixa)
   static double calcularSaldoMinimoCaixa() {
     double giroCaixa = calcularGiroCaixa();
 
     // Se o giro for zero (ou muito próximo) ou a previsão de gastos for zero, retorna 0.0
     if (giroCaixa == 0.0 || previsaoGastos == 0.0) return 0.0;
 
-    // É comum usar o valor absoluto do Giro do Caixa no cálculo do Saldo Mínimo de Caixa
-    // para indicar a necessidade de caixa, mesmo que o ciclo seja negativo.
-    // O Saldo Mínimo de Caixa é a Previsão de Despesas / Giro do Caixa [cite: 40, 42]
+    
     return previsaoGastos / giroCaixa.abs();
   }
 }
